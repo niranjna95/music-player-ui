@@ -3,20 +3,23 @@ import { StyleSheet, Text, TouchableHighlight, View, Image } from 'react-native'
 import { unknowTrackImageUri } from '@/constants/images';
 import { colors, fontSize } from '@/constants/tokens';
 import { defaultStyles } from '@/styles';
+import { Track, useActiveTrack } from 'react-native-track-player';
+import { Entypo } from '@expo/vector-icons';
 
 export type TrackListItemProps = {
-    track: { title: string; image?: string; artist?: string };
+    track: Track;
+    onTrackSelect: (track:Track) => void
 };
 
-const TrackListItem = ({ track }: TrackListItemProps) => {
-    const isActiveTrack = false;
+const TrackListItem = ({ track,onTrackSelect: handdleTrackSelect }: TrackListItemProps) => {
+    const isActiveTrack = useActiveTrack()?.url === track.url;
     return (
-        <TouchableHighlight>
+        <TouchableHighlight onPress={() => handdleTrackSelect(track)}>
             <View style={styles.trackStylesContainer}>
                 <View>
                     <Image
                         source={{
-                            uri: track.image ?? unknowTrackImageUri,
+                            uri: track.artwork ?? unknowTrackImageUri,
                         }}
                         style={{
                             ...styles.trackArtworkImage,
@@ -24,8 +27,9 @@ const TrackListItem = ({ track }: TrackListItemProps) => {
                         }}
                     />
                 </View>
-                {/* Track title + artist */}
-                <View style={{ width: '100%' }}>
+               <View style={styles.trackdots}>
+                 {/* Track title + artist */}
+                 <View style={{ width: '100%' }}>
                     <Text
                         numberOfLines={1}
                         style={{
@@ -41,6 +45,8 @@ const TrackListItem = ({ track }: TrackListItemProps) => {
                         )}
                     </Text>
                 </View>
+                <Entypo name='dots-three-horizontal' size={18} color={colors.icon}/>
+               </View>
             </View>
         </TouchableHighlight>
     );
@@ -55,8 +61,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         columnGap: 14,
         alignItems: 'center',
-        paddingRight: 20,
-    overflow:"hidden"
+        paddingRight: 15,
+        overflow:"hidden"
       
     },
     trackArtworkImage: {
@@ -76,4 +82,10 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginTop: 4,
     },
+    trackdots:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center'
+    }
 });
