@@ -1,11 +1,11 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableHighlight, View, Image } from 'react-native';
+ import React from 'react';
+import { StyleSheet, Text, TouchableHighlight, View, Image, ActivityIndicator } from 'react-native';
 import { unknowTrackImageUri } from '@/constants/images';
 import { colors, fontSize } from '@/constants/tokens';
 import { defaultStyles } from '@/styles';
-import { Track, useActiveTrack } from 'react-native-track-player';
-import { Entypo } from '@expo/vector-icons';
-
+import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player';
+import { Entypo, Ionicons } from '@expo/vector-icons';
+import LottieView from 'lottie-react-native';
 export type TrackListItemProps = {
     track: Track;
     onTrackSelect: (track:Track) => void
@@ -13,6 +13,7 @@ export type TrackListItemProps = {
 
 const TrackListItem = ({ track,onTrackSelect: handdleTrackSelect }: TrackListItemProps) => {
     const isActiveTrack = useActiveTrack()?.url === track.url;
+    const {playing}= useIsPlaying();
     return (
         <TouchableHighlight onPress={() => handdleTrackSelect(track)}>
             <View style={styles.trackStylesContainer}>
@@ -26,6 +27,11 @@ const TrackListItem = ({ track,onTrackSelect: handdleTrackSelect }: TrackListIte
                             opacity: isActiveTrack ? 0.6 : 1,
                         }}
                     />
+    
+                    {isActiveTrack && 
+                       ( playing ? (<ActivityIndicator style={styles.trackPlayingIconIndicator}  color={colors.icon}/>) :
+                       (<Ionicons style={styles.trackPausedIconIndicator} name='play' size={24} color={colors.icon}/>)) 
+                    }
                 </View>
                <View style={styles.trackdots}>
                  {/* Track title + artist */}
@@ -87,5 +93,20 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center'
+    },
+    trackPlayingIconIndicator:{
+        position:'absolute',
+        top: 18,
+        left:16,
+        width:16,
+        height: 16
+    }
+    ,
+    trackPausedIconIndicator:{
+        position:'absolute',
+        top: 14,
+        left:14,
+     
     }
 });
+
