@@ -23,7 +23,7 @@ export const PlayPauseButton = ({style,iconSize}:PlayerButtonProps) => {
             activeOpacity={0.05}
             onPress={playing ? TrackPlayer.pause : TrackPlayer.play} 
         >
-            <FontAwesome name={playing ? 'pause' : 'play'} size={iconSize} color={colors.text}/>
+            <FontAwesome6 name={playing ? 'pause' : 'play'} size={iconSize} color={colors.text}/>
         </TouchableOpacity>
     </View>
   )
