@@ -6,6 +6,7 @@ import { defaultStyles } from '@/styles';
 import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
+import WaveAnimation from './WaveAnimation';
 export type TrackListItemProps = {
     track: Track;
     onTrackSelect: (track:Track) => void
@@ -29,7 +30,10 @@ const TrackListItem = ({ track,onTrackSelect: handdleTrackSelect }: TrackListIte
                     />
     
                     {isActiveTrack && 
-                       ( playing ? (<ActivityIndicator style={styles.trackPlayingIconIndicator}  color={colors.icon}/>) :
+                       ( playing ? ( <WaveAnimation 
+                        style={styles.trackPlayingIconIndicator}
+                       
+                        />) :
                        (<Ionicons style={styles.trackPausedIconIndicator} name='play' size={24} color={colors.icon}/>)) 
                     }
                 </View>
