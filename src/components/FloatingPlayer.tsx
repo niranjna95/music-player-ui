@@ -6,6 +6,7 @@ import { TouchableOpacity } from 'react-native';
 import { Track, useActiveTrack } from 'react-native-track-player'
 import { PlayPauseButton, SkipToNextButton } from './PlayerControls';
 import { useLastActiveTrack } from '@/hooks/useLastActiveTrack';
+import MovingText from './MovingText';
 
 const FloatingPlayer = ({style}:ViewProps) => {
     const activeTrack = useActiveTrack();
@@ -28,7 +29,10 @@ const FloatingPlayer = ({style}:ViewProps) => {
         
         />
          <View style={styles.trckTitleContainer}>
-            <Text style={styles.trackTitle}>{displayerTrack.title}</Text>
+            <MovingText styles={styles.trackTitle}
+             text={displayerTrack.title ?? ''}
+             animationThreshold={24}
+            ></MovingText>
          </View>
              <View style={styles.trackerControlsContainer}>
                 <PlayPauseButton iconSize={24} />
