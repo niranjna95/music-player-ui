@@ -5,7 +5,7 @@ import { colors, fontSize } from '@/constants/tokens';
 import { defaultStyles } from '@/styles';
 import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player';
 import { Entypo, Ionicons } from '@expo/vector-icons';
-import LottieView from 'lottie-react-native';
+
 import WaveAnimation from './WaveAnimation';
 export type TrackListItemProps = {
     track: Track;

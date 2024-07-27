@@ -3,9 +3,10 @@ import {  Text, View } from 'react-native'
 import {StatusBar} from 'expo-status-bar'
 import {SplashScreen, Stack} from 'expo-router'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useSetupTrackPlayer } from '@/hooks/useSetupTrackPlayer';
+import { useSetupTrackPlayer,  } from '@/hooks/useSetupTrackPlayer';
 import TrackPlayer from 'react-native-track-player';
 import useLogTrackPlayerState from '@/hooks/useLogTrackPlayerState';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 TrackPlayer.registerPlaybackService(() => require('../hooks/service'));
  SplashScreen.preventAutoHideAsync();
@@ -19,8 +20,11 @@ const App = ()  =>{
 	})
 	useLogTrackPlayerState()
 	 return <SafeAreaProvider>
-           <RootNavigation/>
-		   <StatusBar style='auto'/>
+		        <GestureHandlerRootView style={{flex:1}}>
+			  <RootNavigation/>
+		       <StatusBar style='auto'/>
+			
+			   </GestureHandlerRootView>
 	 </SafeAreaProvider>
 
 }
@@ -33,7 +37,7 @@ const RootNavigation = () =>{
        <Stack.Screen name='player' options={{
 		presentation:'card',
 		gestureEnabled:true,
-		gestureDirection:'vertical',
+		gestureDirection:'horizontal',
 		animationDuration:400,
 		headerShown:false}}/>
 	</Stack>
