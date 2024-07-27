@@ -48,7 +48,7 @@ const PlayerProgressBar = ({style}:ViewProps) => {
      />
      <View style={styles.timeRow}>
         <Text style={styles.timeText}>{trackElapsedTime}</Text>
-        <Text style={styles.timeText}>{'_'} {trackRemaingTime}</Text>
+        <Text style={styles.timeText}>{'-'} {trackRemaingTime}</Text>
      </View>
    </View>
   )
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 
     timeRow:{
        flexDirection:'row',
-       justifyContent:'center',
+       justifyContent:'space-between',
        alignItems:'baseline',
        marginTop:20
     },
