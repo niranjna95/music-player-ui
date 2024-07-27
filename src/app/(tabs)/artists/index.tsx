@@ -9,14 +9,34 @@ const ArtistsScreen = () => {
 
      
      <View style={defaultStyles.container}>
-          {/* Header */}
-         <Header headerName='Artists'/>
-
-         <Text style={[defaultStyles.text,]}>Artists Screen</Text>
+      <Header headerName='Artists' />
+      
+        <View style={styles.container}>
+      {/* Header */}
+      
+      <Text style={defaultStyles.text}>Artists Screen</Text>
+      <Text style={styles.text}>Coming Soon</Text>
+    </View>
      </View>
   )
 }
 
 export default ArtistsScreen
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'center',     // Center content horizontally
+   
+  },
+  text: {
+    textAlign: 'center',
+    color:'#fff',
+    fontSize:30
+  },
+})
 
 

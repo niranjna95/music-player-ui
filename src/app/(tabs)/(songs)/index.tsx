@@ -1,13 +1,13 @@
 import Header from '@/components/Headers/Header'
 import TracksList from '@/components/TracksList'
-import { colors, screenPadding } from '@/constants/tokens'
-import useNavigationSearch from '@/hooks/useNavigationSearch'
+import { screenPadding } from '@/constants/tokens'
 import { defaultStyles } from '@/styles'
-import { Stack } from 'expo-router'
 import React, { useMemo, useState } from 'react'
-import { ScrollView, Text, View, ViewBase,StyleSheet } from 'react-native'
+import { ScrollView, View, StyleSheet } from 'react-native'
 import library from '@/assets/data/library.json'
 import {trackTitleFilter} from '../../../helpers/filter'
+import { useTracks } from '@/store/library'
+import { generateTracksListId } from '@/helpers/miscellaneous'
 const SongsScreen = () => {
 
     //  const search = useNavigationSearch({
@@ -17,12 +17,15 @@ const SongsScreen = () => {
     //  })
 
     const [search, setSearch ] = useState('');
+
+    const tracks = useTracks()
+
     const filteredTracks = useMemo(() =>{
-        if(!search) return library
+        if(!search) return tracks
 
 
-        return library.filter(trackTitleFilter(search))
-    },[search])
+        return tracks.filter(trackTitleFilter(search))
+    },[search,tracks])
 
   return (
      <>
@@ -35,7 +38,7 @@ const SongsScreen = () => {
        style={{paddingHorizontal: screenPadding.horizontal}}
 
        >
-         <TracksList tracks={filteredTracks} scrollEnabled={false}/>
+         <TracksList id={generateTracksListId('songs',search)} tracks={filteredTracks} scrollEnabled={false}/>
        </ScrollView>
       </View>
      </>
@@ -44,12 +47,6 @@ const SongsScreen = () => {
 
 export default SongsScreen
 
-const styles = StyleSheet.create({
-  debug: {
-    borderColor: 'blue',
-    borderWidth: 2
-  }
-});
 
 
 

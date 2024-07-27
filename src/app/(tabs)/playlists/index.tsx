@@ -6,18 +6,34 @@ import { Text, View,StyleSheet } from 'react-native'
 
 const PlaylistScreen = () => {
   return (
-     <View style={[defaultStyles.container,styles.debug]}>
+     <View style={[defaultStyles.container]}>
        <Header headerName='Playlist'/>
-        <Text style={defaultStyles.text}>Playlist Screen</Text>
+        
+
+        <View style={styles.container}>
+      {/* Header */}
+      
+      <Text style={defaultStyles.text}>Playlist Screen</Text>
+      <Text style={styles.text}>Coming Soon</Text>
+    </View>
      </View>
+    
   )
 }
 
 export default PlaylistScreen
 
 const styles = StyleSheet.create({
-   debug: {
-     borderColor: 'blue',
-     borderWidth: 2
-   }
- });
+  container: {
+    flex: 1,
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'center',     // Center content horizontally
+   
+  },
+  text: {
+    textAlign: 'center',
+    color:'#fff',
+    fontSize:30
+  },
+})
+

@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { FlatList, FlatListProps,Text,View,Image} from 'react-native'
 import library from "@/assets/data/library.json"
 import TrackListItem from './TrackListItem'
 import { utilsStyles } from '@/styles'
 import TrackPlayer, {Track} from 'react-native-track-player'
 import { unknowTrackImageUri } from '@/constants/images'
+import { useQueue } from '@/store/queue'
 
 export type  TrackListProps = Partial<FlatListProps<Track>> & {
+  id:string
   tracks: Track[]
 }
 
@@ -15,11 +17,47 @@ const ItemDivider = () => (
     <View style={{...utilsStyles.itemSeparator, marginVertical: 10, marginLeft: 60}} />
 );
 
-const TracksList = ({tracks,...flatlistProps}:TrackListProps) => {
-  const handlerTrackSelect = async (track: Track) =>{
-     await TrackPlayer.load(track);
-     await TrackPlayer.play();
-  }
+const TracksList = ({id,tracks,...flatlistProps}:TrackListProps) => {
+
+  const queueOffset = useRef(0)
+  const { activeQueueId, setActiveQueueId } = useQueue()
+
+
+  const handleTrackSelect = async (selectedTrack: Track) => {
+		const trackIndex = tracks.findIndex((track) => track.url === selectedTrack.url)
+
+		if (trackIndex === -1) return
+
+		const isChangingQueue = id !== activeQueueId
+
+		if (isChangingQueue) {
+			const beforeTracks = tracks.slice(0, trackIndex)
+			const afterTracks = tracks.slice(trackIndex + 1)
+
+			await TrackPlayer.reset()
+
+			// we construct the new queue
+			await TrackPlayer.add(selectedTrack)
+			await TrackPlayer.add(afterTracks)
+			await TrackPlayer.add(beforeTracks)
+
+			await TrackPlayer.play()
+
+			queueOffset.current = trackIndex
+			setActiveQueueId(id)
+		} else {
+			const nextTrackIndex =
+				trackIndex - queueOffset.current < 0
+					? tracks.length + trackIndex - queueOffset.current
+					: trackIndex - queueOffset.current
+
+			await TrackPlayer.skip(nextTrackIndex)
+			TrackPlayer.play()
+		}
+	}
+
+
+
   return(
     <FlatList
            
@@ -39,7 +77,7 @@ const TracksList = ({tracks,...flatlistProps}:TrackListProps) => {
            renderItem={({item:track}) => (
                 <TrackListItem 
                   track={track}
-                  onTrackSelect={handlerTrackSelect}
+                  onTrackSelect={handleTrackSelect}
                 /> 
            )}
            {...flatlistProps}
