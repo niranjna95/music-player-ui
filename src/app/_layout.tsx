@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useCallback } from 'react'
 import {  Text, View } from 'react-native'
 import {StatusBar} from 'expo-status-bar'
@@ -19,13 +20,15 @@ const App = ()  =>{
 		onLoad : handleTrackPlayerloaded
 	})
 	useLogTrackPlayerState()
-	 return <SafeAreaProvider>
-		        <GestureHandlerRootView style={{flex:1}}>
+	 return(
+	 <SafeAreaProvider>
+        <GestureHandlerRootView style={{flex:1}}>
 			  <RootNavigation/>
 		       <StatusBar style='auto'/>
 			
 			   </GestureHandlerRootView>
 	 </SafeAreaProvider>
+	 ) 
 
 }
 
