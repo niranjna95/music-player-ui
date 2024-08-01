@@ -1,7 +1,7 @@
 export const TYPES = {
    
     IHttpService: Symbol.for("IHttpService"),
-    IMusicLibrary: Symbol.for("IMusicLibrary"),
+    IMusicLibraryService: Symbol.for("IMusicLibraryService"),
 
     IUnitOfService: Symbol.for("IUnitOfService")
 

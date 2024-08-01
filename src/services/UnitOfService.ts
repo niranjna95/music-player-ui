@@ -12,7 +12,7 @@ export default class UnitOfService implements IUnitOfService {
     public MusicLibraryService: IMusicLibraryService;
     constructor(
         httpService = container.get<IHttpService>(TYPES.IHttpService),
-        musicLibrary = container.get<IMusicLibraryService>(TYPES.IMusicLibrary)
+        musicLibrary = container.get<IMusicLibraryService>(TYPES.IMusicLibraryService)
       
     )
     {

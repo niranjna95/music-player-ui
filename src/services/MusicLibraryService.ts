@@ -5,7 +5,9 @@ import { TYPES } from "@/config/types";
 import { AxiosResponse } from "axios";
 import Response from "@/dtos/Response";
 import MusicLibraryDto from "@/dtos/MusicLibraryDto";
+import { injectable } from "inversify";
 
+@injectable()
 export default class MusicLibraryService implements IMusicLibraryService{
     private readonly httpService: IHttpService;
 

@@ -4,28 +4,38 @@ import { TYPES } from '@/config/types'
 import MusicLibraryDto from '@/dtos/MusicLibraryDto'
 import IUnitOfService from '@/services/interfaces/IUnitOfService'
 import { defaultStyles } from '@/styles'
-import { Stack } from 'expo-router'
+import { Stack, useFocusEffect } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { Text, View,StyleSheet } from 'react-native'
 
 const ArtistsScreen = () => {
+
   const unitOfService = container.get<IUnitOfService>(TYPES.IUnitOfService);
 
-  const [students, setStudent] = useState<MusicLibraryDto[]>([]);
+  const [students, setStudents] = useState<MusicLibraryDto[]>([]);
   const fetchStudents = async () => {
-    const response = await unitOfService.MusicLibraryService.get();
-    if (response && response.status === 200 && response.data.data) {
-      setStudent(response.data.data);
+    console.log("Test")
+    try {
+      const response = await unitOfService.MusicLibraryService.get();
+      if (response && response.status === 200 && response.data.data) {
+        setStudents(response.data.data);
+      } else {
+        console.error('Failed to fetch students:', response);
+      }
+    } catch (error) {
+      console.error('Error fetching students:', error);
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      await fetchStudents();
-      console.log(students)
-    })();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchStudents();
+    }, [])
+  );
 
+  useEffect(() => {
+    console.log(students);
+  }, [students]);
 
   return (
 
