@@ -4,16 +4,19 @@ import IHttpService from "./interfaces/IHttpService";
 import axios, { AxiosError, AxiosInstance } from "axios";
 
 import https from "https";
+import getEnvVars from "@/config/config";
 
 @injectable()
 export default class HttpService implements IHttpService {
   private readonly baseUrl: string;
   private readonly clientId: string;
   constructor() {
-    this.baseUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
-    this.clientId = `${process.env.NEXT_PUBLIC_API_CLIENT_ID}`;
+    const envVars = getEnvVars();
+    this.baseUrl = `${envVars.API_URL}`;
+    this.clientId = `${envVars.CLIENT_ID}`;
+    
   }
-
+  
   externalCall(contentType: string = "application/json"): AxiosInstance {
     const instance = axios.create();
     instance.defaults.headers.common["Content-Type"] = contentType;
@@ -23,7 +26,7 @@ export default class HttpService implements IHttpService {
   call(contentType: string = "application/json"): AxiosInstance {
     const instance = axios.create({
       baseURL: this.baseUrl,
-      withCredentials: true,
+      //withCredentials: true,
     });
     instance.defaults.headers.common["clientId"] = this.clientId;
     instance.defaults.headers.common["Content-Type"] = contentType;
@@ -67,7 +70,7 @@ export default class HttpService implements IHttpService {
   ): AxiosInstance {
     const instance = axios.create({
       baseURL: this.baseUrl,
-      withCredentials: true,
+      //withCredentials: true,
     });
     instance.defaults.headers.common["clientId"] = this.clientId;
     instance.defaults.headers.common["Content-Type"] = contentType;

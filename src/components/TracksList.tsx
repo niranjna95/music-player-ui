@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
 import { FlatList, FlatListProps,Text,View,Image} from 'react-native'
-import library from "@/assets/data/library.json"
 import TrackListItem from './TrackListItem'
 import { utilsStyles } from '@/styles'
 import TrackPlayer, {Track} from 'react-native-track-player'
