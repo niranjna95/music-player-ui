@@ -5,6 +5,7 @@
 		"target": "ES6",
 		"module": "commonjs",
 		"moduleResolution": "Node",
+		
 		"jsx": "react-native",
 		"lib": ["dom", "esnext"],
 		"noEmit": true,
@@ -15,7 +16,10 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"@/assets/*": ["./assets/*"]
-		}
+		},
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"types": ["reflect-metadata", "node"], 
 	},
 	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "src/hooks/useSetupTrackPlayer.tsx", "src/hooks/useNavigationSearch.js"],
 	"exclude": ["node_modules"]

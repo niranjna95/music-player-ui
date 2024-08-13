@@ -1,10 +1,11 @@
 import Header from '@/components/Headers/Header'
 import { defaultStyles } from '@/styles'
-import { Stack } from 'expo-router'
-import React from 'react'
+import React, {  } from 'react'
 import { Text, View,StyleSheet } from 'react-native'
 
 const ArtistsScreen = () => {
+
+
   return (
 
      

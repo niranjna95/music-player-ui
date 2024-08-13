@@ -1,3 +1,4 @@
+import 'reflect-metadata'; // Import this at the very top
 import { StackScreenWithSearchBar } from '@/constants/layout'
 import { defaultStyles } from '@/styles'
 import { Stack } from 'expo-router'

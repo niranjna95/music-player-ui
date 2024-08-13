@@ -1,3 +1,4 @@
+
 import MovingText from '@/components/MovingText'
 import { PlayerControls } from '@/components/PlayerControls'
 import PlayerProgressBar from '@/components/PlayerProgressBar'

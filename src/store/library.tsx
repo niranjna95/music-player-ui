@@ -5,6 +5,7 @@ import library from '@/assets/data/library.json'
 
 interface LibraryState{
     tracks: TrackWithPlayList[]
+    setTracks: (tracks: TrackWithPlayList[]) => void
     toggleTrackFavorite:(track: Track) => void
     addToPlaylist : (track: Track, playlistName: string) => void
 }
@@ -12,7 +13,8 @@ interface LibraryState{
 export const useLibraryStore = create<LibraryState>()((set) => (
     {
 
-        tracks: library,
+        tracks: [],
+        setTracks: (tracks) => set({ tracks }),
         toggleTrackFavorite: () =>{},
         addToPlaylist: () =>{}
     }
