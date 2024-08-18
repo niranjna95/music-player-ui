@@ -45,7 +45,7 @@ const MovingText = ({text,animationThreshold,styles}:MovingTextProps) => {
     animtedstyle,
     shouldAnimate && {
         width: 9999,//
-        padding: 16
+        padding: 8
     }
 
    ]}>

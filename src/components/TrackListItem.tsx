@@ -47,12 +47,13 @@ const TrackListItem = ({ track,onTrackSelect: handdleTrackSelect }: TrackListIte
                         }}
                     >
                         {track.title}
-                        {track.artist && (
+                       
+                    </Text>
+                    {track.artist && (
                             <Text numberOfLines={1} style={styles.trackArtistText}>
-                                {track.artist}
+                              {track.artist}
                             </Text>
                         )}
-                    </Text>
                 </View>
                 <Entypo name='dots-three-horizontal' size={18} color={colors.icon}/>
                </View>
