@@ -1,28 +1,26 @@
-import React, { useRef } from 'react'
-import { FlatList, FlatListProps,Text,View,Image} from 'react-native'
-import TrackListItem from './TrackListItem'
-import { utilsStyles } from '@/styles'
-import TrackPlayer, {Track} from 'react-native-track-player'
 import { unknowTrackImageUri } from '@/constants/images'
 import { useQueue } from '@/store/queue'
+import { utilsStyles } from '@/styles'
+import React, { useRef } from 'react'
+import { FlatList, FlatListProps, Image, Text, View } from 'react-native'
+import TrackPlayer, { Track } from 'react-native-track-player'
+import TrackListItem from './TrackListItem'
 
-export type  TrackListProps = Partial<FlatListProps<Track>> & {
-  id:string
-  tracks: Track[]
+export type TrackListProps = Partial<FlatListProps<Track>> & {
+	id: string
+	tracks: Track[]
 }
 
 const ItemDivider = () => (
-    // 'ItemDivider is assigned a value but never used.'
-    <View style={{...utilsStyles.itemSeparator, marginVertical: 10, marginLeft: 60}} />
-);
+	// 'ItemDivider is assigned a value but never used.'
+	<View style={{ ...utilsStyles.itemSeparator, marginVertical: 10, marginLeft: 60 }} />
+)
 
-const TracksList = ({id,tracks,...flatlistProps}:TrackListProps) => {
+const TracksList = ({ id, tracks, ...flatlistProps }: TrackListProps) => {
+	const queueOffset = useRef(0)
+	const { activeQueueId, setActiveQueueId } = useQueue()
 
-  const queueOffset = useRef(0)
-  const { activeQueueId, setActiveQueueId } = useQueue()
-
-
-  const handleTrackSelect = async (selectedTrack: Track) => {
+	const handleTrackSelect = async (selectedTrack: Track) => {
 		const trackIndex = tracks.findIndex((track) => track.url === selectedTrack.url)
 
 		if (trackIndex === -1) return
@@ -55,33 +53,29 @@ const TracksList = ({id,tracks,...flatlistProps}:TrackListProps) => {
 		}
 	}
 
-
-
-  return(
-    <FlatList
-           
-           data={tracks}
-           contentContainerStyle={{paddingTop:5, paddingBottom:128}}
-           ItemSeparatorComponent={ItemDivider}
-           ListEmptyComponent={<View>
-
-                <Text style={utilsStyles.emptyContentText}>No songs found</Text>
-                <Image
-                        source={{
-                            uri: unknowTrackImageUri
-                        }}
-                        style={utilsStyles.emptyContentImage}
-                    />
-           </View>}
-           renderItem={({item:track}) => (
-                <TrackListItem 
-                  track={track}
-                  onTrackSelect={handleTrackSelect}
-                /> 
-           )}
-           {...flatlistProps}
-        />
-  )
+	return (
+		<FlatList
+			data={tracks}
+			contentContainerStyle={{ paddingTop: 5, paddingBottom: 128 }}
+			ListFooterComponent={ItemDivider}
+			ItemSeparatorComponent={ItemDivider}
+			ListEmptyComponent={
+				<View>
+					<Text style={utilsStyles.emptyContentText}>No songs found</Text>
+					<Image
+						source={{
+							uri: unknowTrackImageUri,
+						}}
+						style={utilsStyles.emptyContentImage}
+					/>
+				</View>
+			}
+			renderItem={({ item: track }) => (
+				<TrackListItem track={track} onTrackSelect={handleTrackSelect} />
+			)}
+			{...flatlistProps}
+		/>
+	)
 }
 
 export default TracksList

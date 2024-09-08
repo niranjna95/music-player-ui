@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import TrackPlayer, { RepeatMode } from 'react-native-track-player'
 
-const userTrackPlayerMode = () => {
+const UserTrackPlayerMode = () => {
 
     const [repeatMode, setRepeatMode] = useState<RepeatMode>();
 
@@ -16,4 +16,4 @@ const userTrackPlayerMode = () => {
   return {repeatMode,changeRepeatMode}
 }
 
-export default userTrackPlayerMode
+export default UserTrackPlayerMode

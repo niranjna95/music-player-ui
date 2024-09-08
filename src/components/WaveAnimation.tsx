@@ -10,6 +10,37 @@ type WaveAnimationProps = {
     waveWidth?: number;
 };
 
+// Separate Wave component
+const Wave: React.FC<{ color: string; height: number; width: number; marginLeft: number }> = ({
+    color,
+    height,
+    width,
+    marginLeft,
+}) => {
+    const wave = useSharedValue(0);
+
+    const animatedStyle = useAnimatedStyle(() => ({
+        transform: [{ scaleY: wave.value }],
+    }));
+
+    wave.value = withRepeat(withSpring(1, { damping: 2, stiffness: 100 }), -1);
+
+    return (
+        <Animated.View
+            style={[
+                styles.wave,
+                {
+                    backgroundColor: color,
+                    height: height,
+                    width: width,
+                    marginLeft: marginLeft,
+                },
+                animatedStyle,
+            ]}
+        />
+    );
+};
+
 const WaveAnimation: React.FC<WaveAnimationProps> = ({
     style,
     waveColor = '#87CEEB',
@@ -17,35 +48,17 @@ const WaveAnimation: React.FC<WaveAnimationProps> = ({
     waveHeight = 15,
     waveWidth = 2,
 }) => {
-    const waves = Array.from({ length: waveCount }, (_, index) => useSharedValue(0));
-
-    waves.forEach((wave, index) => {
-        wave.value = withRepeat(withSpring(1, { damping: 2, stiffness: 100 }), -1);
-    });
-
     return (
         <View style={[styles.container, style]}>
-            {waves.map((wave, index) => {
-                const animatedStyle = useAnimatedStyle(() => ({
-                    transform: [{ scaleY: wave.value }],
-                }));
-
-                return (
-                    <Animated.View
-                        key={index}
-                        style={[
-                            styles.wave,
-                            {
-                                backgroundColor: waveColor,
-                                height: waveHeight,
-                                width: waveWidth,
-                                marginLeft: index * (waveWidth + 0),
-                            },
-                            animatedStyle,
-                        ]}
-                    />
-                );
-            })}
+            {Array.from({ length: waveCount }).map((_, index) => (
+                <Wave
+                    key={index}
+                    color={waveColor}
+                    height={waveHeight}
+                    width={waveWidth}
+                    marginLeft={index * (waveWidth + 5)} // Adjust for some spacing
+                />
+            ))}
         </View>
     );
 };
