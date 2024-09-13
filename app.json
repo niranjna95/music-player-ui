@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "music-player",
+    "name": "MusicWave",
     "slug": "music-player",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -19,7 +19,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.musicplayer",
+      "versionCode": 2
     },
     "web": {
       "bundler": "metro",
@@ -30,7 +32,22 @@
       "expo-router"
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "tsconfigPaths": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "fc505bfe-b7f6-4547-9e21-20c7ec6602bc"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/fc505bfe-b7f6-4547-9e21-20c7ec6602bc"
     }
   }
 }
