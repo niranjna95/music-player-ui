@@ -25,5 +25,13 @@
 		"react/react-in-jsx-scope": "off",
 		"react/display-name": "off",
 		"@typescript-eslint/no-unused-vars": "warn"
-	}
+	},
+	"overrides": [
+		{
+			"files": ["metro.config.js", "metro.config.cjs"],
+			"rules": {
+				"@typescript-eslint/no-var-requires": "off"
+			}
+		}
+	]
 }

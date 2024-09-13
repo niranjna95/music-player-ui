@@ -1,18 +1,51 @@
+// -----This is eas.json configurtion for production build  Start--------
+
 {
-  "cli": {
-    "version": ">= 10.2.0"
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
-    },
-    "preview": {
-      "distribution": "internal"
-    },
-    "production": {}
-  },
-  "submit": {
-    "production": {}
-  }
+	"cli": {
+		"version": ">= 10.2.4",
+		"appVersionSource": "local"
+	},
+	"build": {
+		"development": {
+			"developmentClient": true,
+			"distribution": "internal",
+			"android": {
+				"buildType": "apk"
+			}
+		},
+		"preview": {
+			"distribution": "internal",
+			"android": {
+				"buildType": "apk"
+			}
+		},
+		"production": {
+			"android": {
+				"autoIncrement": true
+			},
+			"channel": "production"
+		}
+	}
 }
+
+// -----This is eas.json configurtion for production build  End--------
+
+// -----This is eas.json configurtion for development build  Start--------
+// {
+// 	"cli": {
+// 		"version": ">= 10.2.4"
+// 	},
+// 	"build": {
+// 		"development": {
+// 			"developmentClient": true,
+// 			"distribution": "internal"
+// 		},
+// 		"preview": {
+// 			"distribution": "internal"
+// 		},
+// 		"production": {}
+// 	}
+// }
+
+
+// -----This is eas.json configurtion for development build  End--------
